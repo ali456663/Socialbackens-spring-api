@@ -7,6 +7,7 @@ WORKDIR /app
 # Kopiera Maven wrapper
 COPY mvnw .
 COPY .mvn .mvn
+RUN chmod +x mvnw
 
 # Kopiera pom.xml
 COPY pom.xml .
@@ -21,4 +22,4 @@ RUN ./mvnw clean package -DskipTests
 EXPOSE 9091
 
 # Kör applikationen
-ENTRYPOINT ["java", "-jar", "target/*.jar"]
+ENTRYPOINT ["sh", "-c", "java -jar target/*.jar"]
