@@ -1,0 +1,40 @@
+# Build stage
+FROM eclipse-temurin:21-jdk-alpine AS build
+WORKDIR /workspace/app
+
+# Kopiera Maven wrapper och pom.xml
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml .
+
+# Ladda dependencies
+RUN ./mvnw dependency:go-offline -B
+
+# Kopiera källkod
+COPY src src
+
+# Bygg appen
+RUN ./mvnw package -DskipTests
+RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
+
+# Runtime stage
+FROM eclipse-temurin:21-jre-alpine
+VOLUME /tmp
+
+# Skapa non-root user
+RUN addgroup -S spring && adduser -S spring -G spring
+USER spring:spring
+
+ARG DEPENDENCY=/workspace/app/target/dependency
+COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
+COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
+COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
+
+# Använd prod profil
+ENV SPRING_PROFILES_ACTIVE=prod
+
+# Expose port
+EXPOSE 9091
+
+# Starta appen
+ENTRYPOINT ["java", "-cp", "app:app/lib/*", "se.jensen.ali.backend.Application"]

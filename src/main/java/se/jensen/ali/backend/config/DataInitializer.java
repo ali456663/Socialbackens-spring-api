@@ -37,11 +37,11 @@ public class DataInitializer {
 
                 User user1 = new User();
                 user1.setUsername("ali");
-                user1.setPassword(passwordEncoder.encode("password123"));  // VIKTIGT: Kryptera lösenordet!
+                user1.setPassword(passwordEncoder.encode("vinter2026"));
 
                 User user2 = new User();
                 user2.setUsername("lok");
-                user2.setPassword(passwordEncoder.encode("password123"));  // VIKTIGT: Kryptera lösenordet!
+                user2.setPassword(passwordEncoder.encode("vinter2026"));
 
                 User savedUser1 = userRepository.save(user1);
                 User savedUser2 = userRepository.save(user2);
@@ -77,11 +77,11 @@ public class DataInitializer {
                 System.out.println("🎉🎉🎉 Testdata skapad klart! 🎉🎉🎉");
                 System.out.println("   - 2 användare: ali (id: " + savedUser1.getId() + "), lok (id: " + savedUser2.getId() + ")");
                 System.out.println("   - 6 posts totalt");
-                System.out.println("🌐 API är redo på http://localhost:9090");
-                System.out.println("🔧 H2 Console: http://localhost:9090/h2-console");
+                System.out.println("🌐 API är redo på http://localhost:9091");
+                System.out.println("🔧 H2 Console: http://localhost:9091/h2-console");
                 System.out.println("   JDBC URL: jdbc:h2:mem:socialdb");
                 System.out.println("   Username: sa");
-                System.out.println("   Password: password");
+                System.out.println("   Password: vinter2026");
             } else {
                 System.out.println("ℹ️ Data finns redan, inget skapas");
                 System.out.println("   Användare: " + userCount);

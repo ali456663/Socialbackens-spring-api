@@ -1,29 +1,13 @@
 package se.jensen.ali.backend;
-# application-test.yml
-spring:
-datasource:
-url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-driver-class-name: org.h2.Driver
-username: sa
-password:
 
-h2:
-console:
-enabled: true
-path: /h2-console
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-jpa:
-database-platform: org.hibernate.dialect.H2Dialect
-hibernate:
-ddl-auto: create-drop
-show-sql: true
+@SpringBootTest
+class ApplicationTests {
 
-sql:
-init:
-mode: always
-
-logging:
-level:
-org.hibernate.SQL: DEBUG
-org.hibernate.type: TRACE
-com.socialapp: DEBUG
+    @Test
+    void contextLoads() {
+        // Verifies that the Spring context starts without errors.
+    }
+}
