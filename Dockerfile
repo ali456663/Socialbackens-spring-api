@@ -20,6 +20,5 @@ RUN ./mvnw clean package -DskipTests
 
 # Exportera port
 EXPOSE 9091
-
 # Kör applikationen
 ENTRYPOINT ["sh", "-c", "java -jar target/*.jar"]
